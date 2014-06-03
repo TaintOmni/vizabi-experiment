@@ -1,5 +1,5 @@
 define([
-    'visualizations/vizabi'
+    'tools/tool'
 ], function(Vizabi) {
     var newVizabi = function(core, options) {
         var <%= _.camelize(vizabiName) %> = new Vizabi(core, options);
