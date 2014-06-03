@@ -74,9 +74,10 @@ define([
       return this;
     },
 
-    setLanguage: function(lang) {
-      if (!lang) return;  // let it fail silently?
-      this.managers.i18n.setLanguage(lang, function(lang) {
+    setLanguage: function(options) {
+      if (!options) return;  // let it fail silently?
+      if (options.path) this.managers.i18n.setPath({url: options.path});
+      this.managers.i18n.setLanguage(options.language, function(lang) {
         this.managers.events.trigger('change:language', lang);
       });
       return this;
@@ -101,6 +102,15 @@ define([
       if (!name) return this.managers;
       if (this.managers[name]) return this.managers[name];
       return null;
+    },
+    
+    trigger: function(what) {
+      var args = Array.prototype.slice.call(arguments).slice(1);
+      this.managers['events'].trigger(what, args);
+    },
+
+    bind: function(what, fn) {
+      this.managers['events'].bind(what, fn);
     }
   };
 
